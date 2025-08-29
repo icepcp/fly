@@ -1,0 +1,25 @@
+# fly.toml app configuration file generated for mysql-1 on 2025-07-26T10:53:44+08:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'mysql-1'
+primary_region = 'dfw'
+swap_size_mb = 1024
+
+[build]
+  image = 'mysql:8.4.6'
+
+[env]
+  MYSQL_DATABASE = 'ghost-1'
+  MYSQL_USER = 'ghost-1'
+
+[processes]
+  app = '--datadir /data/mysql --mysql-native-password=ON'
+
+[[mounts]]
+  source = 'data'
+  destination = '/data'
+
+[[vm]]
+  size = 'shared-cpu-1x'

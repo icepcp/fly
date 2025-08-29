@@ -1,0 +1,53 @@
+# fly.toml app configuration file generated for ghost-1 on 2025-07-15T13:48:41+08:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+# secrets:
+# database__connection__password
+# mail__options__auth__pass
+
+app = 'ghost-1'
+primary_region = 'dfw'
+
+[build]
+  image = 'ghost:6.0.0'
+
+[env]
+  database__client = 'mysql'
+  database__connection__database = 'ghost_1'
+  database__connection__host = 'mysql-1.internal'
+  database__connection__user = 'ghost_1'
+  mail__from = 'noreply@theprospecttimes.com'
+  mail__options__auth__user = 'noreply@theprospecttimes.com'
+  mail__options__host = 'ny-shared01.dapanel.net'
+  mail__options__port = '587'
+  mail__options__service = 'SMTP'
+  mail__transport = 'SMTP'
+  url = 'https://theprospecttimes.com'
+
+[[mounts]]
+  source = 'data'
+  destination = '/var/lib/ghost/content'
+  initial_size = '8gb'
+
+[http_service]
+  internal_port = 2368
+  force_https = true
+  auto_stop_machines = "suspend"
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ['app']
+
+[checks]
+  [checks.web]
+    port = 2368
+    type = 'tcp'
+    interval = '15s'
+    timeout = '10s'
+    grace_period = '30s'
+
+[[vm]]
+  memory = '1gb'
+  cpu_kind = 'shared'
+  cpus = 1
