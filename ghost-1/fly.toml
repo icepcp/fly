@@ -11,7 +11,7 @@ app = 'ghost-1'
 primary_region = 'dfw'
 
 [build]
-  image = 'ghost:6.0.5'
+  image = 'ghost:6.4'
 
 [env]
   database__client = 'mysql'
