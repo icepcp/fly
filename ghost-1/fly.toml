@@ -6,12 +6,13 @@
 # secrets:
 # database__connection__password
 # mail__options__auth__pass
+# tinybird__adminToken
 
 app = 'ghost-1'
 primary_region = 'dfw'
 
-[build]
-  image = 'ghost:6.4'
+# [build]
+#   image = 'ghost:6.5'
 
 [env]
   database__client = 'mysql'
@@ -25,6 +26,10 @@ primary_region = 'dfw'
   mail__options__service = 'SMTP'
   mail__transport = 'SMTP'
   url = 'https://theprospecttimes.com'
+  tinybird__tracker__endpoint = 'https://theprospecttimes.com/.ghost/analytics/api/v1/page_hit'
+  tinybird__workspaceId = 'b8cc9f22-4930-445e-88d9-fb0b63aade64'
+  tinybird__tracker__datasource = 'analytics_events'
+  tinybird__stats__endpoint = 'https://api.us-east.aws.tinybird.co'
 
 [[mounts]]
   source = 'data'
@@ -32,7 +37,7 @@ primary_region = 'dfw'
   initial_size = '8gb'
 
 [http_service]
-  internal_port = 2368
+  internal_port = 8080
   force_https = true
   auto_stop_machines = "suspend"
   auto_start_machines = true
@@ -41,7 +46,7 @@ primary_region = 'dfw'
 
 [checks]
   [checks.web]
-    port = 2368
+    port = 8080
     type = 'tcp'
     interval = '15s'
     timeout = '10s'

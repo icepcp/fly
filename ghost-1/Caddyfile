@@ -1,0 +1,28 @@
+{
+    debug
+}
+
+:8080 {
+	import snippets/Logging
+
+	# Traffic Analytics service
+	import snippets/TrafficAnalytics
+
+	# ActivityPub Service
+	import snippets/ActivityPub
+
+	# Default proxy everything else to Ghost
+	handle {
+		reverse_proxy localhost:2368 {
+			header_up X-Forwarded-Proto https
+			header_up X-Forwarded-Host {host}
+			header_up X-Real-IP {remote_host}
+		}
+	}
+
+	# Optional: Enable gzip compression
+	encode gzip
+
+	# Optional: Add security headers
+	import snippets/SecurityHeaders
+}

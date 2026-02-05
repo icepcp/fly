@@ -1,0 +1,29 @@
+# fly.toml app configuration file generated for ghost-tb-1 on 2025-11-01T19:21:19+08:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+# secrets:
+# TINYBIRD_TRACKER_TOKEN
+# TINYBIRD_ADMIN_TOKEN
+# tinybird__adminToken
+
+app = 'ghost-tb-1'
+primary_region = 'dfw'
+
+[build]
+  image = 'ghost/traffic-analytics:1.0.20'
+
+[env]
+  NODE_ENV = 'production'
+  PROXY_TARGET = 'https://api.us-east.aws.tinybird.co/v0/events'
+  SALT_STORE_TYPE = 'file'
+  SALT_STORE_FILE_PATH = '/data/salts.json'
+  LOG_LEVEL = 'debug'
+
+[[vm]]
+  size = 'shared-cpu-1x'
+
+[[mounts]]
+  source = 'data'
+  destination = '/data'
