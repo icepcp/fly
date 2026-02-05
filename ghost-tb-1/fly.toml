@@ -6,7 +6,6 @@
 # secrets:
 # TINYBIRD_TRACKER_TOKEN
 # TINYBIRD_ADMIN_TOKEN
-# tinybird__adminToken
 
 app = 'ghost-tb-1'
 primary_region = 'dfw'
